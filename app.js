@@ -10,20 +10,37 @@ new Vue({
             },
             newNameText:'',
             guestName: [],
-            formSubmitClass: "",
             appStyles: {
                 marginTop : '25px'
-            }
+            },
+            eventCapacity:25,
+            eventCapacityPercentage:0
         }
     },
     methods: {
         formSubmitted: function(){
-            if(this.newNameText.length>0)
+            if(this.newNameText.length>0 && this.eventCapacityPercentage<100)
             {
                 this.guestName.push(this.newNameText);
                 this.newNameText='';
-                this.formSubmitClass="submitted"
+                this.formSubmitClass="submitted";
+                this.eventCapacityPercentage = this.guestName.length / (this.eventCapacity / 100);
             }
+        }
+    },
+    computed: {
+        sortName: function(){
+            return this.guestName.sort();
+        }
+    },
+    watch: {
+        guestName: function(data){
+            console.log("watch triggered - guestName");
+        }
+    },
+    filters:{
+        formatName: function(value){
+            return value.slice(0,1).toUpperCase() + value.slice(1).toLowerCase();
         }
     }
 });
