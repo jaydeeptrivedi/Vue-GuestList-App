@@ -59,14 +59,17 @@
               <progress v-bind:style="{width: eventCapacityPercentage + '%'}"></progress>
             </div>
             <div class="card-block">
-              <div v-if="guestName.length > 0">
+              
+              <transition-group name="scale">
                 <div class="card-success rounded name-box" v-for='(name,index) in sortName' v-bind:key="name">
                     {{name | formatName}} ({{index+1}})
                 </div>
-              </div>
-              <div v-else>
+              </transition-group>
+
+              <div v-if="guestName.length === 0">
                 <h4>no names added yet...</h4>
               </div>
+            
             </div>
           </div>
 
